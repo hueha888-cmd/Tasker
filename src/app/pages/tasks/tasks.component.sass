@@ -1,0 +1,259 @@
+.tasks-container
+  max-width: 1400px
+  margin: 0 auto
+  padding: 2rem
+
+.tasks-header
+  margin-bottom: 2rem
+  
+  h1
+    font-size: 2.5rem
+    font-weight: 700
+    color: #1a1a1a
+    margin-bottom: 1.5rem
+
+.add-task-section
+  display: flex
+  gap: 1rem
+  margin-bottom: 2rem
+
+  .new-task-input
+    flex: 1
+    padding: 0.875rem 1rem
+    font-size: 1rem
+    border: 2px solid #e0e0e0
+    border-radius: 8px
+    transition: all 0.2s ease
+    
+    &:focus
+      outline: none
+      border-color: #4CAF50
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1)
+
+  .priority-select
+    padding: 0.875rem 1rem
+    font-size: 1rem
+    border: 2px solid #e0e0e0
+    border-radius: 8px
+    background: white
+    cursor: pointer
+    transition: all 0.2s ease
+    text-transform: capitalize
+    
+    &:focus
+      outline: none
+      border-color: #4CAF50
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1)
+
+  .btn-add
+    padding: 0.875rem 2rem
+    font-size: 1rem
+    font-weight: 600
+    background: linear-gradient(135deg, #4CAF50, #45a049)
+    color: white
+    border: none
+    border-radius: 8px
+    cursor: pointer
+    transition: all 0.2s ease
+    
+    &:hover:not(:disabled)
+      transform: translateY(-2px)
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3)
+    
+    &:disabled
+      opacity: 0.5
+      cursor: not-allowed
+
+.lists-container
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr))
+  gap: 2rem
+
+.task-list
+  background: white
+  border-radius: 12px
+  padding: 1.5rem
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
+
+  .list-title
+    font-size: 1.5rem
+    font-weight: 600
+    margin-bottom: 1.5rem
+    padding-bottom: 0.75rem
+    border-bottom: 3px solid
+    
+    &.outstanding
+      color: #2196F3
+      border-color: #2196F3
+    
+    &.completed
+      color: #4CAF50
+      border-color: #4CAF50
+
+.tasks
+  display: flex
+  flex-direction: column
+  gap: 0.75rem
+
+.empty-message
+  padding: 2rem
+  text-align: center
+  color: #999
+  font-style: italic
+
+.task-item
+  display: flex
+  align-items: center
+  gap: 0.75rem
+  padding: 1rem
+  background: #f9f9f9
+  border: 2px solid #e0e0e0
+  border-radius: 8px
+  transition: all 0.2s ease
+  
+  &:hover
+    border-color: #ccc
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08)
+  
+  &.completed
+    .task-title
+      text-decoration: line-through
+      color: #888
+
+  .task-checkbox
+    width: 20px
+    height: 20px
+    cursor: pointer
+    flex-shrink: 0
+
+  .task-content
+    flex: 1
+    min-width: 0
+
+  .task-info
+    display: flex
+    align-items: center
+    gap: 0.75rem
+    flex-wrap: wrap
+
+  .task-title
+    font-size: 1rem
+    color: #333
+    cursor: pointer
+    display: block
+    word-break: break-word
+
+  .task-priority
+    padding: 0.25rem 0.75rem
+    border-radius: 12px
+    font-size: 0.75rem
+    font-weight: 600
+    text-transform: uppercase
+    letter-spacing: 0.5px
+    
+    &.priority-low
+      background: #e3f2fd
+      color: #1976d2
+    
+    &.priority-medium
+      background: #fff3e0
+      color: #f57c00
+    
+    &.priority-high
+      background: #ffebee
+      color: #d32f2f
+
+  .task-edit-form
+    display: flex
+    gap: 0.5rem
+    width: 100%
+    align-items: center
+
+  .task-edit-input
+    flex: 1
+    padding: 0.5rem
+    font-size: 1rem
+    border: 2px solid #2196F3
+    border-radius: 4px
+    
+    &:focus
+      outline: none
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1)
+
+  .priority-select-edit
+    padding: 0.5rem
+    font-size: 0.875rem
+    border: 2px solid #2196F3
+    border-radius: 4px
+    background: white
+    cursor: pointer
+    text-transform: capitalize
+    
+    &:focus
+      outline: none
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1)
+
+  .task-actions
+    display: flex
+    gap: 0.5rem
+    flex-shrink: 0
+
+  .btn-icon
+    width: 32px
+    height: 32px
+    display: flex
+    align-items: center
+    justify-content: center
+    border: none
+    border-radius: 6px
+    cursor: pointer
+    font-size: 1rem
+    transition: all 0.2s ease
+    
+    &.btn-edit
+      background: #e3f2fd
+      color: #2196F3
+      
+      &:hover
+        background: #2196F3
+        color: white
+    
+    &.btn-delete
+      background: #ffebee
+      
+      &:hover
+        background: #f44336
+        transform: scale(1.1)
+    
+    &.btn-save
+      background: #e8f5e9
+      color: #4CAF50
+      font-weight: bold
+      font-size: 1.25rem
+      
+      &:hover
+        background: #4CAF50
+        color: white
+    
+    &.btn-cancel
+      background: #fafafa
+      color: #666
+      font-weight: bold
+      
+      &:hover
+        background: #e0e0e0
+
+@media (max-width: 768px)
+  .tasks-container
+    padding: 1rem
+
+  .lists-container
+    grid-template-columns: 1fr
+    gap: 1.5rem
+
+  .add-task-section
+    flex-direction: column
+
+    .btn-add
+      width: 100%
+

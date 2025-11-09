@@ -1,0 +1,170 @@
+<div class="tasks-container">
+  <header class="tasks-header">
+    <h1>Task Manager</h1>
+    <div class="add-task-section">
+      <input
+        type="text"
+        [value]="newTaskTitle()"
+        (input)="newTaskTitle.set($any($event.target).value)"
+        (keyup.enter)="addTask()"
+        placeholder="Enter new task..."
+        class="new-task-input"
+      />
+      <select
+        [value]="newTaskPriority()"
+        (change)="newTaskPriority.set($any($event.target).value)"
+        class="priority-select"
+      >
+        @for (priority of priorities; track priority) {
+          <option [value]="priority">{{ priority }}</option>
+        }
+      </select>
+      <button (click)="addTask()" class="btn-add" [disabled]="!newTaskTitle().trim()">
+        Add Task
+      </button>
+    </div>
+  </header>
+
+  <div class="lists-container">
+    <section class="task-list">
+      <h2 class="list-title outstanding">Outstanding Tasks ({{ outstandingTasks().length }})</h2>
+      <div class="tasks">
+        @if (outstandingTasks().length === 0) {
+          <p class="empty-message">No outstanding tasks. Great job!</p>
+        }
+        @for (task of outstandingTasks(); track task.id) {
+          <div class="task-item">
+            <input
+              type="checkbox"
+              [checked]="task.isDone"
+              (change)="toggleTaskStatus(task)"
+              class="task-checkbox"
+              id="task-{{ task.id }}"
+            />
+            <div class="task-content">
+              @if (isEditing(task.id)) {
+                <div class="task-edit-form">
+                  <input
+                    type="text"
+                    [value]="editingTaskTitle()"
+                    (input)="editingTaskTitle.set($any($event.target).value)"
+                    (keyup.enter)="saveEdit(task.id)"
+                    (keyup.escape)="cancelEditing()"
+                    class="task-edit-input"
+                    autofocus
+                  />
+                  <select
+                    [value]="editingTaskPriority()"
+                    (change)="editingTaskPriority.set($any($event.target).value)"
+                    class="priority-select-edit"
+                  >
+                    @for (priority of priorities; track priority) {
+                      <option [value]="priority">{{ priority }}</option>
+                    }
+                  </select>
+                </div>
+              } @else {
+                <div class="task-info">
+                  <label [for]="'task-' + task.id" class="task-title">
+                    {{ task.title }}
+                  </label>
+                  <span class="task-priority" [class]="'priority-' + task.priority">
+                    {{ task.priority }}
+                  </span>
+                </div>
+              }
+            </div>
+            <div class="task-actions">
+              @if (isEditing(task.id)) {
+                <button (click)="saveEdit(task.id)" class="btn-icon btn-save" title="Save">
+                  ✓
+                </button>
+                <button (click)="cancelEditing()" class="btn-icon btn-cancel" title="Cancel">
+                  ✕
+                </button>
+              } @else {
+                <button (click)="startEditing(task)" class="btn-icon btn-edit" title="Edit">
+                  ✏
+                </button>
+                <button (click)="deleteTask(task.id)" class="btn-icon btn-delete" title="Delete">
+                  🗑
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+
+    <section class="task-list">
+      <h2 class="list-title completed">Completed Tasks ({{ completedTasks().length }})</h2>
+      <div class="tasks">
+        @if (completedTasks().length === 0) {
+          <p class="empty-message">No completed tasks yet.</p>
+        }
+        @for (task of completedTasks(); track task.id) {
+          <div class="task-item completed">
+            <input
+              type="checkbox"
+              [checked]="task.isDone"
+              (change)="toggleTaskStatus(task)"
+              class="task-checkbox"
+              id="task-{{ task.id }}"
+            />
+            <div class="task-content">
+              @if (isEditing(task.id)) {
+                <div class="task-edit-form">
+                  <input
+                    type="text"
+                    [value]="editingTaskTitle()"
+                    (input)="editingTaskTitle.set($any($event.target).value)"
+                    (keyup.enter)="saveEdit(task.id)"
+                    (keyup.escape)="cancelEditing()"
+                    class="task-edit-input"
+                    autofocus
+                  />
+                  <select
+                    [value]="editingTaskPriority()"
+                    (change)="editingTaskPriority.set($any($event.target).value)"
+                    class="priority-select-edit"
+                  >
+                    @for (priority of priorities; track priority) {
+                      <option [value]="priority">{{ priority }}</option>
+                    }
+                  </select>
+                </div>
+              } @else {
+                <div class="task-info">
+                  <label [for]="'task-' + task.id" class="task-title">
+                    {{ task.title }}
+                  </label>
+                  <span class="task-priority" [class]="'priority-' + task.priority">
+                    {{ task.priority }}
+                  </span>
+                </div>
+              }
+            </div>
+            <div class="task-actions">
+              @if (isEditing(task.id)) {
+                <button (click)="saveEdit(task.id)" class="btn-icon btn-save" title="Save">
+                  ✓
+                </button>
+                <button (click)="cancelEditing()" class="btn-icon btn-cancel" title="Cancel">
+                  ✕
+                </button>
+              } @else {
+                <button (click)="startEditing(task)" class="btn-icon btn-edit" title="Edit">
+                  ✏
+                </button>
+                <button (click)="deleteTask(task.id)" class="btn-icon btn-delete" title="Delete">
+                  🗑
+                </button>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </section>
+  </div>
+</div>
+
