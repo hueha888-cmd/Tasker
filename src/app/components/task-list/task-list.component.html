@@ -1,0 +1,61 @@
+<section class="task-list">
+  <h2 class="list-title" [class.completed]="filterByDone() === true" [class.outstanding]="filterByDone() === false">
+    {{ title() }} ({{ filteredTasks().length }})
+  </h2>
+  <div class="tasks">
+    @if (filteredTasks().length === 0) {
+      <p class="empty-message">{{ emptyMessage() }}</p>
+    }
+    @for (task of paginatedTasks(); track task.id) {
+      <div class="task-item" [class.completed]="task.isDone">
+        <input
+          type="checkbox"
+          [checked]="task.isDone"
+          (change)="toggleTask(task)"
+          class="task-checkbox"
+          [id]="'task-' + task.id"
+        />
+        <div class="task-content">
+          @if (isEditing(task.id)) {
+            <app-task-form
+              [mode]="'edit'"
+              [context]="'inline'"
+              [initialTitle]="task.title"
+              [initialPriority]="task.priority"
+              [showCancel]="true"
+              (formSubmitted)="onEditSubmit(task.id, $event)"
+              (formCancelled)="onEditCancel()"
+            />
+          } @else {
+            <div class="task-info">
+              <label [for]="'task-' + task.id" class="task-title">
+                {{ task.title }}
+              </label>
+              <span class="task-priority" [class]="'priority-' + task.priority">
+                {{ task.priority }}
+              </span>
+            </div>
+          }
+        </div>
+        @if (!isEditing(task.id)) {
+          <div class="task-actions">
+            <button (click)="startEditing(task)" class="btn-icon btn-edit" title="Edit">
+              ✏
+            </button>
+            <button (click)="deleteTask(task.id)" class="btn-icon btn-delete" title="Delete">
+              🗑
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </div>
+  
+  <app-paging 
+    [totalItems]="filteredTasks().length"
+    [pageSize]="pageSize()"
+    [currentPage]="currentPage()"
+    (pageChanged)="onPageChanged($event)"
+  />
+</section>
+

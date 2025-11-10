@@ -1,0 +1,173 @@
+.task-form
+  display: flex
+  gap: 0.75rem
+  width: 100%
+
+.form-field
+  display: flex
+  flex-direction: column
+  gap: 4px
+  flex: 1
+  min-width: 0
+
+.task-input
+  width: 100%
+  padding: 0.75rem 1rem
+  font-size: 1rem
+  border: 2px solid #e0e0e0
+  border-radius: 6px
+  transition: all 0.2s ease
+  font-family: inherit
+
+  &:focus
+    outline: none
+
+  &.invalid
+    border-color: #e74c3c
+    background: #fef5f5
+
+.priority-select
+  padding: 0.75rem 1rem
+  font-size: 0.95rem
+  border: 2px solid #e0e0e0
+  border-radius: 6px
+  background: white
+  cursor: pointer
+  transition: all 0.2s ease
+  text-transform: capitalize
+  flex-shrink: 0
+
+  &:focus
+    outline: none
+
+.form-actions
+  display: flex
+  gap: 0.5rem
+  flex-shrink: 0
+
+.btn-submit,
+.btn-cancel
+  padding: 0.75rem 1.5rem
+  font-size: 0.95rem
+  font-weight: 600
+  border: none
+  border-radius: 6px
+  cursor: pointer
+  transition: all 0.2s ease
+  white-space: nowrap
+
+  &:disabled
+    opacity: 0.5
+    cursor: not-allowed
+
+.btn-submit
+  background: linear-gradient(135deg, #4CAF50, #45a049)
+  color: white
+
+  &:hover:not(:disabled)
+    transform: translateY(-1px)
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3)
+
+.btn-cancel
+  background: #f8f9fa
+  color: #6c757d
+
+  &:hover
+    background: #e9ecef
+    color: #495057
+
+.error-message
+  font-size: 0.75rem
+  color: #e74c3c
+  font-weight: 500
+  padding-left: 4px
+  animation: slideDown 0.2s ease-out
+
+// Page context (for main task entry form)
+.task-form-page
+  align-items: flex-start
+
+  .task-input
+    padding: 0.875rem 1rem
+    font-size: 1rem
+
+    &:focus
+      border-color: #4CAF50
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1)
+
+    &.invalid:focus
+      border-color: #c0392b
+      box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1)
+
+  .priority-select
+    padding: 0.875rem 1rem
+    font-size: 1rem
+
+    &:focus
+      border-color: #4CAF50
+      box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1)
+
+  .btn-submit
+    padding: 0.875rem 2rem
+    font-size: 1rem
+
+// Inline context (for editing inside task list)
+.task-form-inline
+  align-items: flex-start
+  flex-wrap: wrap
+
+  .task-input
+    min-width: 200px
+    border-color: #3498db
+
+    &:focus
+      border-color: #2980b9
+
+    &.invalid
+      &:focus
+        border-color: #c0392b
+
+  .priority-select
+    border-color: #3498db
+    font-size: 0.9rem
+
+    &:focus
+      border-color: #2980b9
+
+  .btn-submit
+    padding: 6px 16px
+    font-size: 0.9rem
+    background: #27ae60
+    
+    &:hover:not(:disabled)
+      background: #229954
+      transform: scale(1.05)
+
+  .btn-cancel
+    padding: 6px 16px
+    font-size: 0.9rem
+    background: #e74c3c
+    color: white
+
+    &:hover
+      background: #c0392b
+
+@keyframes slideDown
+  from
+    opacity: 0
+    transform: translateY(-4px)
+  to
+    opacity: 1
+    transform: translateY(0)
+
+@media (max-width: 768px)
+  .task-form-page
+    flex-wrap: wrap
+
+    .form-field
+      flex: 1 1 100%
+
+    .priority-select,
+    .btn-submit
+      flex: 1
+

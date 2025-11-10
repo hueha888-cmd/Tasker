@@ -1,0 +1,49 @@
+<form 
+  [formGroup]="taskForm" 
+  (ngSubmit)="onSubmit()" 
+  [class]="'task-form task-form-' + context()"
+>
+  <div class="form-field">
+    <input
+      type="text"
+      formControlName="title"
+      (keydown)="onKeyDown($event)"
+      [placeholder]="mode() === 'create' ? 'Enter new task...' : 'Edit task title'"
+      class="task-input"
+      [class.invalid]="titleControl?.invalid && titleControl?.touched"
+      [autofocus]="mode() === 'edit'"
+    />
+    @if (getTitleError()) {
+      <span class="error-message">{{ getTitleError() }}</span>
+    }
+  </div>
+  
+  <select
+    formControlName="priority"
+    class="priority-select"
+  >
+    @for (priority of priorities; track priority) {
+      <option [value]="priority">{{ priority }}</option>
+    }
+  </select>
+  
+  <div class="form-actions">
+    <button 
+      type="submit" 
+      class="btn-submit" 
+      [disabled]="taskForm.invalid"
+    >
+      {{ computedSubmitLabel() }}
+    </button>
+    
+    @if (showCancel()) {
+      <button 
+        type="button" 
+        class="btn-cancel" 
+        (click)="onCancel()"
+      >
+        Cancel
+      </button>
+    }
+  </div>
+</form>
