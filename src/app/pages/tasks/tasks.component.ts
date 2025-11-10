@@ -1,15 +1,25 @@
 import { Component, inject, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatCardModule } from '@angular/material/card';
 import { Store } from '@ngrx/store';
 import { Task, TaskPriority } from '../../models/task.model';
 import * as TaskActions from '../../store/tasks/task.actions';
-import { selectAllTasks } from '../../store/tasks/task.selectors';
+import { selectAllTasks, selectTasksLoading } from '../../store/tasks/task.selectors';
 import { TaskListComponent } from '../../components/task-list/task-list.component';
 import { TaskFormComponent, TaskFormData } from '../../components/task-form/task-form';
+import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner';
 
 @Component({
   selector: 'app-tasks',
-  imports: [CommonModule, TaskListComponent, TaskFormComponent],
+  imports: [
+    CommonModule, 
+    MatToolbarModule, 
+    MatCardModule,
+    TaskListComponent, 
+    TaskFormComponent, 
+    LoadingSpinnerComponent
+  ],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -18,6 +28,7 @@ export class TasksComponent implements OnInit {
   private readonly store = inject(Store);
   
   readonly allTasks = this.store.selectSignal(selectAllTasks);
+  readonly loading = this.store.selectSignal(selectTasksLoading);
 
   ngOnInit(): void {
     this.store.dispatch(TaskActions.loadTasks());

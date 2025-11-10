@@ -1,35 +1,44 @@
 <div class="tasks-container">
-  <header class="tasks-header">
+  <mat-toolbar color="primary" class="tasks-header">
     <h1>Task Manager</h1>
-    <div class="add-task-section">
+  </mat-toolbar>
+
+  <mat-card class="add-task-card">
+    <mat-card-content>
       <app-task-form
         [mode]="'create'"
         [context]="'page'"
         (formSubmitted)="onTaskCreated($event)"
       />
+    </mat-card-content>
+  </mat-card>
+
+  @if (loading()) {
+    <app-loading-spinner 
+      [message]="'Loading tasks...'"
+      [size]="'large'"
+    />
+  } @else {
+    <div class="lists-container">
+      <app-task-list
+        [tasks]="allTasks()"
+        [filterByDone]="false"
+        [title]="'Outstanding Tasks'"
+        [emptyMessage]="'No outstanding tasks. Great job!'"
+        (taskToggled)="onTaskToggled($event)"
+        (taskEdited)="onTaskEdited($event)"
+        (taskDeleted)="onTaskDeleted($event)"
+      />
+
+      <app-task-list
+        [tasks]="allTasks()"
+        [filterByDone]="true"
+        [title]="'Completed Tasks'"
+        [emptyMessage]="'No completed tasks yet.'"
+        (taskToggled)="onTaskToggled($event)"
+        (taskEdited)="onTaskEdited($event)"
+        (taskDeleted)="onTaskDeleted($event)"
+      />
     </div>
-  </header>
-
-  <div class="lists-container">
-    <app-task-list
-      [tasks]="allTasks()"
-      [filterByDone]="false"
-      [title]="'Outstanding Tasks'"
-      [emptyMessage]="'No outstanding tasks. Great job!'"
-      (taskToggled)="onTaskToggled($event)"
-      (taskEdited)="onTaskEdited($event)"
-      (taskDeleted)="onTaskDeleted($event)"
-    />
-
-    <app-task-list
-      [tasks]="allTasks()"
-      [filterByDone]="true"
-      [title]="'Completed Tasks'"
-      [emptyMessage]="'No completed tasks yet.'"
-      (taskToggled)="onTaskToggled($event)"
-      (taskEdited)="onTaskEdited($event)"
-      (taskDeleted)="onTaskDeleted($event)"
-    />
-  </div>
+  }
 </div>
-

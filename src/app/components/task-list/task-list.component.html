@@ -1,19 +1,21 @@
-<section class="task-list">
-  <h2 class="list-title" [class.completed]="filterByDone() === true" [class.outstanding]="filterByDone() === false">
-    {{ title() }} ({{ filteredTasks().length }})
-  </h2>
-  <div class="tasks">
+<mat-card class="task-list">
+  <mat-card-header>
+    <mat-card-title class="list-title" [class.completed]="filterByDone() === true" [class.outstanding]="filterByDone() === false">
+      {{ title() }} ({{ filteredTasks().length }})
+    </mat-card-title>
+  </mat-card-header>
+  
+  <mat-card-content class="tasks">
     @if (filteredTasks().length === 0) {
       <p class="empty-message">{{ emptyMessage() }}</p>
     }
     @for (task of paginatedTasks(); track task.id) {
       <div class="task-item" [class.completed]="task.isDone">
-        <input
-          type="checkbox"
+        <mat-checkbox
           [checked]="task.isDone"
           (change)="toggleTask(task)"
           class="task-checkbox"
-          [id]="'task-' + task.id"
+          color="primary"
         />
         <div class="task-content">
           @if (isEditing(task.id)) {
@@ -28,34 +30,33 @@
             />
           } @else {
             <div class="task-info">
-              <label [for]="'task-' + task.id" class="task-title">
-                {{ task.title }}
-              </label>
-              <span class="task-priority" [class]="'priority-' + task.priority">
-                {{ task.priority }}
-              </span>
+              <span class="task-title">{{ task.title }}</span>
+              <mat-chip [class]="'priority-' + task.priority">
+                {{ task.priority | titlecase }}
+              </mat-chip>
             </div>
           }
         </div>
         @if (!isEditing(task.id)) {
           <div class="task-actions">
-            <button (click)="startEditing(task)" class="btn-icon btn-edit" title="Edit">
-              ✏
+            <button mat-icon-button (click)="startEditing(task)" color="primary" aria-label="Edit task">
+              <mat-icon>edit</mat-icon>
             </button>
-            <button (click)="deleteTask(task.id)" class="btn-icon btn-delete" title="Delete">
-              🗑
+            <button mat-icon-button (click)="deleteTask(task.id)" color="warn" aria-label="Delete task">
+              <mat-icon>delete</mat-icon>
             </button>
           </div>
         }
       </div>
     }
-  </div>
+  </mat-card-content>
   
-  <app-paging 
-    [totalItems]="filteredTasks().length"
-    [pageSize]="pageSize()"
-    [currentPage]="currentPage()"
-    (pageChanged)="onPageChanged($event)"
-  />
-</section>
-
+  <mat-card-footer>
+    <app-paging 
+      [totalItems]="filteredTasks().length"
+      [pageSize]="pageSize()"
+      [currentPage]="currentPage()"
+      (pageChanged)="onPageChanged($event)"
+    />
+  </mat-card-footer>
+</mat-card>

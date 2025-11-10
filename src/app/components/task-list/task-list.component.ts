@@ -1,5 +1,10 @@
 import { Component, input, output, signal, computed, ChangeDetectionStrategy, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { Task, TaskPriority } from '../../models/task.model';
 import { PagingComponent } from '../paging/paging';
 import { TaskFormComponent, TaskFormData } from '../task-form/task-form';
@@ -8,7 +13,16 @@ const DEFAULT_PAGE_SIZE = 5;
 
 @Component({
   selector: 'app-task-list',
-  imports: [CommonModule, PagingComponent, TaskFormComponent],
+  imports: [
+    CommonModule, 
+    MatCardModule, 
+    MatCheckboxModule, 
+    MatChipsModule, 
+    MatButtonModule, 
+    MatIconModule,
+    PagingComponent, 
+    TaskFormComponent
+  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush
