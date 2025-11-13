@@ -19,7 +19,7 @@
       [size]="'large'"
     />
   } @else {
-    <div class="lists-container">
+    <div class="lists-container" cdkDropListGroup>
       <app-task-list
         [tasks]="allTasks()"
         [filterByDone]="false"

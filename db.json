@@ -26,14 +26,14 @@
     },
     {
       "id": "625a",
-      "title": "anotehr new task",
-      "isDone": false,
+      "title": "anotehr new task sdsd",
+      "isDone": true,
       "priority": "low"
     },
     {
       "id": "6906",
       "title": "new dsd",
-      "isDone": false,
+      "isDone": true,
       "priority": "high"
     },
     {
@@ -197,12 +197,6 @@
       "title": "Create user onboarding flow",
       "isDone": false,
       "priority": "low"
-    },
-    {
-      "id": "t026",
-      "title": "Implement caching strategy",
-      "isDone": false,
-      "priority": "high"
     },
     {
       "id": "t027",
@@ -665,6 +659,18 @@
       "isDone": false,
       "priority": "medium",
       "id": "1_dD5Bn"
+    },
+    {
+      "title": "fdfgdgfg",
+      "isDone": false,
+      "priority": "medium",
+      "id": "okPMWzp"
+    },
+    {
+      "title": "fdfdfd",
+      "isDone": false,
+      "priority": "medium",
+      "id": "qzYwBSA"
     }
   ]
 }

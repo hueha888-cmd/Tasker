@@ -9,20 +9,23 @@ import { selectAllTasks, selectTasksLoading } from '../../store/tasks/task.selec
 import { TaskListComponent } from '../../components/task-list/task-list.component';
 import { TaskFormComponent, TaskFormData } from '../../components/task-form/task-form';
 import { LoadingSpinnerComponent } from '../../components/loading-spinner/loading-spinner';
+import { CdkDropListGroup } from "@angular/cdk/drag-drop";
+
 
 @Component({
   selector: 'app-tasks',
   imports: [
-    CommonModule, 
-    MatToolbarModule, 
+    CommonModule,
+    MatToolbarModule,
     MatCardModule,
-    TaskListComponent, 
-    TaskFormComponent, 
-    LoadingSpinnerComponent
-  ],
+    TaskListComponent,
+    TaskFormComponent,
+    LoadingSpinnerComponent,
+    CdkDropListGroup
+],
   templateUrl: './tasks.component.html',
   styleUrl: './tasks.component.sass',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TasksComponent implements OnInit {
   private readonly store = inject(Store);

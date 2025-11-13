@@ -8,24 +8,26 @@ import { MatIconModule } from '@angular/material/icon';
 import { Task, TaskPriority } from '../../models/task.model';
 import { PagingComponent } from '../paging/paging';
 import { TaskFormComponent, TaskFormData } from '../task-form/task-form';
-
+import { CdkDragDrop, CdkDropList, CdkDrag} from '@angular/cdk/drag-drop';
 const DEFAULT_PAGE_SIZE = 5;
 
 @Component({
   selector: 'app-task-list',
   imports: [
-    CommonModule, 
-    MatCardModule, 
-    MatCheckboxModule, 
-    MatChipsModule, 
-    MatButtonModule, 
+    CommonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatButtonModule,
     MatIconModule,
-    PagingComponent, 
-    TaskFormComponent
-  ],
+    PagingComponent,
+    TaskFormComponent,
+    CdkDropList,
+    CdkDrag
+],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.sass',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskListComponent {
   readonly tasks = input.required<Task[]>();
@@ -114,5 +116,12 @@ export class TaskListComponent {
   isEditing(taskId: string): boolean {
     return this.editingTaskId() === taskId;
   }
-}
 
+  onDragDrop(event: CdkDragDrop<any>){
+     if (event.previousContainer != event.container)
+     {
+       this.taskToggled.emit(event.item.data);
+     }
+  }
+
+}

@@ -9,8 +9,16 @@
     @if (filteredTasks().length === 0) {
       <p class="empty-message">{{ emptyMessage() }}</p>
     }
+    <div cdkDropList
+    (cdkDropListDropped)="onDragDrop($event)"
+    [cdkDropListData]="filteredTasks"    
+    >
     @for (task of paginatedTasks(); track task.id) {
-      <div class="task-item" [class.completed]="task.isDone">
+      <div class="task-item" 
+           [class.completed]="task.isDone" 
+           cdkDrag 
+           [cdkDragData]="task"
+           >
         <mat-checkbox
           [checked]="task.isDone"
           (change)="toggleTask(task)"
@@ -49,6 +57,7 @@
         }
       </div>
     }
+  </div>
   </mat-card-content>
   
   <mat-card-footer>
